@@ -1,4 +1,5 @@
 ﻿using E_CommerceApi.Repository.RolesRepository.RolesRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_CommerceApi.Controllers.Roles
@@ -22,6 +23,7 @@ namespace E_CommerceApi.Controllers.Roles
             return BadRequest("There is no Roles!");
         }
         [HttpPost("AddRole/{Name:alpha}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddRole([FromRoute] string Name)
         {
             if (ModelState.IsValid)
@@ -34,6 +36,7 @@ namespace E_CommerceApi.Controllers.Roles
             return BadRequest(ModelState);
         }
         [HttpDelete("DeleteRole/{Name:alpha}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole([FromRoute] string Name)
         {
             if (ModelState.IsValid)
